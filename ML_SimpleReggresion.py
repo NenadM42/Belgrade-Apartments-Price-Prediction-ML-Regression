@@ -3,8 +3,14 @@ import pandas as pd
 
 from sklearn.model_selection import train_test_split
 from sklearn import preprocessing, model_selection ,svm
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression,TheilSenRegressor
 from sklearn.linear_model import Ridge
+
+
+from sklearn.linear_model import RANSACRegressor
+
+
+
 
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn import ensemble
@@ -17,6 +23,10 @@ y = data.Price
 X = data.drop(['Price','ID','Address'],axis = 1)
 
 X["No_of_rooms"] = X["No_of_rooms"].replace("5+","6")
+
+X['Squares'] = X['Squares']/2
+    
+
 
 #for i in range(0,len(y)):
 #    y[i] = y[i].replace('.','')
@@ -45,8 +55,25 @@ clf = LinearRegression()
 
 clf.fit(X_train,y_train)
 
+
 accuracy = clf.score(X_test,y_test)
 
+
+rooms_test = 1
+squares_test = 31
+one_sq_test = 1324
+
+data_test = {'Squares' : [squares_test],
+             'No_of_rooms' : [rooms_test],
+             'One_Sq' : [one_sq_test]}
+
+
+df_test = pd.DataFrame(data_test,columns = ['Squares','No_of_rooms','One_Sq'])
+
+prediction = clf.predict(df_test)
+
+
+print(prediction)
 print(accuracy)
 
 
