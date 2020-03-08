@@ -17,8 +17,7 @@ y = data.Price
 X = data.drop(['Price','ID','Address'],axis = 1)
 
 X["No_of_rooms"] = X["No_of_rooms"].replace("5+","6")
-
-X['Squares'] = X['Squares']/2
+#X['Squares'] = X['Squares']/2
 
 """
 for i in range(0,len(X)):
